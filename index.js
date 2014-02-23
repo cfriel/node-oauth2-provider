@@ -123,6 +123,8 @@ OAuth2Provider.prototype.oauth = function() {
       var    client_id = req.query.client_id,
           redirect_uri = req.query.redirect_uri;
 
+	console.log("hello world");
+
       if(!client_id || !redirect_uri) {
         res.writeHead(400);
         return res.end('client_id and redirect_uri required');
@@ -173,7 +175,7 @@ OAuth2Provider.prototype.oauth = function() {
             var atok = self.generateAccessToken(user_id, client_id, extra_data, token_options);
 
             if(self.listeners('save_access_token').length > 0)
-              self.emit('save_access_token', user_id, client_id, atok);
+		self.emit('save_access_token', user_id, client_id, atok, req);
 
             url += querystring.stringify(atok);
 
